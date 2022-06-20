@@ -1,7 +1,10 @@
 controllers:
     resource: ../src/Controller/
     type: annotation
-
+short_message_controller:
+    resource: ../src/ShortMessage/Presentation/
+    type: annotation
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+
