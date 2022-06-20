@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class FrontPageController extends AbstractController
 {
    /**
-    * @Route("/")
+    * @Route("/{reactRouting}", name="home", defaults={"reactRouting": null})
     */
     public function number(): Response
     {

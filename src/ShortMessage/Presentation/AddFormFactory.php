@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class AddFormFactory
 {
-
     public function createFromRequest(Request $request): AddForm
     {
         return new AddForm(
