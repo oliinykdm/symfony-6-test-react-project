@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import {Route, Routes, Link, Navigate, withRouter, BrowserRouter} from 'react-router-dom';
-import NewShortMessage from './NewShortMessage';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import axios from 'axios';
@@ -46,15 +44,15 @@ class LatestShortMessages extends Component {
                                             <div className="media-body">
                                               <h4>{message.messageText}</h4>
                                                 <p></p>
-                                               <p><b>Author:</b>&nbsp;
+                                               <p><b>Author: </b>
                                                  {message.messageAuthor === 1
                                                     ? <i>Anonymous</i>
                                                     : <i>{message.messageAuthor}</i>
                                                 }
                                                </p>
-                                                <p><b>UUID:</b>&nbsp;
+                                                <p><b>UUID: </b>
                                                     {message.uuid}</p>
-                                                <p><b>Date:</b>&nbsp;
+                                                <p><b>Date: </b>
                                                     <Moment fromNow date={message.messageDate} />
                                                     </p>
                                             </div>
