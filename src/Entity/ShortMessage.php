@@ -20,6 +20,9 @@ class ShortMessage
     #[ORM\Column(type: 'integer')]
     private $message_author;
 
+    #[ORM\Column(type: 'datetime')]
+    private $message_date;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -57,6 +60,18 @@ class ShortMessage
     public function setMessageAuthor(int $message_author): self
     {
         $this->message_author = $message_author;
+
+        return $this;
+    }
+
+    public function getMessageDate(): ?\DateTimeInterface
+    {
+        return $this->message_date;
+    }
+
+    public function setMessageDate(\DateTimeInterface $message_date): self
+    {
+        $this->message_date = $message_date;
 
         return $this;
     }

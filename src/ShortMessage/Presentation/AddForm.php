@@ -35,7 +35,7 @@ final class AddForm
         return new AddShortMessage(
             Uuid::v4(),
             $this->message_text,
-            $this->message_author
+            $this->message_author,
         );
 
     }

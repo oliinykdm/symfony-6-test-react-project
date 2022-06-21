@@ -53,6 +53,8 @@ class LatestShortMessages extends Component {
                                                </p>
                                                 <p><b>UUID:</b>&nbsp;
                                                     {message.uuid}</p>
+                                                <p><b>Date:</b>&nbsp;
+                                                    {message.uuid}</p>
                                             </div>
                                         </div>
                                     </li>

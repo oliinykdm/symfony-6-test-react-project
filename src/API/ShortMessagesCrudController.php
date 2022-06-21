@@ -54,10 +54,13 @@ final class ShortMessagesCrudController extends AjaxController
      */
     public function getAllShortMessages(): Response
     {
+        $messages = $this->shortMessageRepository->createQueryBuilder('s')
+            ->orderBy('s.message_date', 'DESC')
+            ->getQuery()
+            ->execute();
+
         return $this->ajaxResponse(
-            $this->toJson(
-                array_reverse($this->shortMessageRepository->findAll())
-            )
+            $this->toJson($messages)
         );
     }
 }

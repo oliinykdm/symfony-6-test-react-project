@@ -18,7 +18,8 @@ final class AddShortMessageHandler
         $shortMessage
             ->setUuid($command->getUuid())
             ->setMessageText($command->getMessageText())
-            ->setMessageAuthor($command->getMessageAuthor());
+            ->setMessageAuthor($command->getMessageAuthor())
+            ->setMessageDate(new \DateTimeImmutable());
 
         $this->shortMessageRepository->add($shortMessage, true);
     }
