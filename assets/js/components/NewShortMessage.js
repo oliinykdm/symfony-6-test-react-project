@@ -6,14 +6,23 @@ import 'react-toastify/dist/ReactToastify.css';
 class NewShortMessage extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: ''
-        };
+
+        this.state = { csrf_token: null, csrf_name: 'add_message', value: ''}
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-
+    componentDidMount() {
+        this.getCsrf();
+    }
+    getCsrf() {
+        axios.get('/api/csrf', { params: { action: this.state.csrf_name } }).then(res => {
+            const csrf_token = res.data.value;
+            this.setState({ csrf_token: csrf_token });
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = csrf_token;
+            axios.defaults.headers.common['X-CSRF-ID'] = this.state.csrf_name;
+        })
+    }
 
     addShortMessage() {
         let data = new FormData();
@@ -79,8 +88,9 @@ class NewShortMessage extends Component {
 
                                                     <div className="form-group">
                                                         <form name="add_new_short_message" onSubmit={this.handleSubmit}>
-
                                                         <label htmlFor="add_new_short_message">Your short message (up to 200 symbols) here:</label>
+                                                        <input type="hidden" name="csrf_name" value={this.state.csrf_name}/>
+                                                        <input type="hidden" name="csrf_token" value={this.state.csrf_token}/>
                                                         <textarea className="form-control" id="add_new_short_message" name="message_text" rows="4" value={this.state.value}  onChange={this.handleChange} />
 
                                                         <p></p>

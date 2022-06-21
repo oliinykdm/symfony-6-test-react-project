@@ -2,6 +2,7 @@
 
 namespace App\API\Ajax;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -9,8 +10,18 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class AjaxController extends AbstractController
 {
+    private CsrfTokenManagerInterface $csrfTokenManager;
+
+    public function __construct(
+        CsrfTokenManagerInterface $csrfTokenManager
+    )
+    {
+        $this->csrfTokenManager = $csrfTokenManager;
+    }
     protected function toJson($object): string {
         $encoders = [new JsonEncoder()];
         $normalizers = [new UidNormalizer(), new DateTimeNormalizer(), new ObjectNormalizer()];
@@ -27,4 +38,19 @@ class AjaxController extends AbstractController
 
         return $response;
     }
+    /**
+     * @Route("/api/csrf", methods={"GET"})
+     */
+    public function getCsrf(Request $request): Response
+    {
+        return $this->ajaxResponse(
+            $this->toJson(
+                $this->csrfTokenManager->getToken(
+                    $request->get('action')
+                )
+            )
+        );
+    }
+
+
 }

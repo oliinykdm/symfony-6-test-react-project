@@ -32,7 +32,14 @@ final class ShortMessagesCrudController extends AjaxController
      */
     public function addNewShortMessage(Request $request): Response
     {
+        $token_id = $request->headers->get('X-CSRF-ID');
+        $token_value = $request->headers->get('X-CSRF-TOKEN');
 
+        if(!$this->isCsrfTokenValid($token_id, $token_value)) {
+            return $this->ajaxResponse(
+                $this->toJson(['status' => 'error', 'data' => 'Probe hack! It seems that your CSRF token is invalid!'])
+            );
+        }
         $form = $this->addingFormFactory->createFromRequest($request);
 
         if ($form->hasValidationErrors()) {
