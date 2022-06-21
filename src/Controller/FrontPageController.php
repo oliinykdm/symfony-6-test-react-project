@@ -11,12 +11,8 @@ class FrontPageController extends AbstractController
    /**
     * @Route("/{reactRouting}", name="home", defaults={"reactRouting": null})
     */
-    public function number(): Response
+    public function index(): Response
     {
-        $number = random_int(0, 100);
-
-        return $this->render('shortmessages/frontpage.html.twig', [
-            'title' => $number,
-        ]);
+        return $this->render('shortmessages/frontpage.html.twig');
     }
 }
