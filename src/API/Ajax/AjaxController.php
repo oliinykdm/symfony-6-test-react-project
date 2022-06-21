@@ -8,11 +8,12 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\UidNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 class AjaxController extends AbstractController
 {
     protected function toJson($object): string {
         $encoders = [new JsonEncoder()];
-        $normalizers = [new UidNormalizer(), new ObjectNormalizer()];
+        $normalizers = [new UidNormalizer(), new DateTimeNormalizer(), new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
         return $serializer->serialize($object, 'json');
     }

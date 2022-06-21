@@ -58,7 +58,6 @@ final class ShortMessagesCrudController extends AjaxController
             ->orderBy('s.message_date', 'DESC')
             ->getQuery()
             ->execute();
-
         return $this->ajaxResponse(
             $this->toJson($messages)
         );

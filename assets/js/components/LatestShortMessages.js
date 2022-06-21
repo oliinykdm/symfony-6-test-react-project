@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Route, Routes, Link, Navigate, withRouter, BrowserRouter} from 'react-router-dom';
 import NewShortMessage from './NewShortMessage';
-
+import Moment from 'react-moment';
+import 'moment-timezone';
 import axios from 'axios';
 
 
@@ -54,7 +55,8 @@ class LatestShortMessages extends Component {
                                                 <p><b>UUID:</b>&nbsp;
                                                     {message.uuid}</p>
                                                 <p><b>Date:</b>&nbsp;
-                                                    {message.uuid}</p>
+                                                    <Moment fromNow date={message.messageDate} />
+                                                    </p>
                                             </div>
                                         </div>
                                     </li>
