@@ -27,9 +27,7 @@ class AddController extends AbstractController
      */
     public function index(): Response
     {
-
         return $this->render('shortmessages/adding/form.html.twig', [
-
         ]);
     }
     /**

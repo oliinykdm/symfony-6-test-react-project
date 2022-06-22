@@ -7,7 +7,7 @@ use App\Entity\ShortMessageRepository;
 
 final class AddShortMessageHandler
 {
-    private object $shortMessageRepository;
+    private ShortMessageRepository $shortMessageRepository;
     public function __construct(ShortMessageRepository $shortMessageRepository)
     {
         $this->shortMessageRepository = $shortMessageRepository;

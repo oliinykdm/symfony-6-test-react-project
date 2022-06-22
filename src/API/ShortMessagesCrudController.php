@@ -6,17 +6,14 @@ use App\API\Ajax\AjaxController;
 use App\Entity\ShortMessageRepository;
 use App\ShortMessage\Application\AddShortMessageHandler;
 use App\ShortMessage\Presentation\AddFormFactory;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class ShortMessagesCrudController extends AjaxController
 {
-    private object $shortMessageRepository;
-    private object $addingFormFactory;
-    private object $addingShortMessageHandler;
+    private ShortMessageRepository $shortMessageRepository;
+    private AddFormFactory $addingFormFactory;
+    private AddShortMessageHandler $addingShortMessageHandler;
     public function __construct(
         ShortMessageRepository $shortMessageRepository,
         AddFormFactory         $addingFormFactory,

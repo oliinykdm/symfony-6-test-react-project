@@ -2,7 +2,6 @@
 
 namespace App\ShortMessage\Presentation;
 
-use App\Entity\ShortMessage;
 use App\ShortMessage\Application\AddShortMessage;
 use Symfony\Component\Uid\Uuid;
 
