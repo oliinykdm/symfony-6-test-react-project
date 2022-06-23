@@ -3,11 +3,14 @@
 namespace App\API;
 
 use App\API\Ajax\AjaxController;
+use App\Entity\ShortMessage;
 use App\Entity\ShortMessageRepository;
 use App\ShortMessage\Application\AddShortMessageHandler;
 use App\ShortMessage\Presentation\AddFormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 
 final class ShortMessagesCrudController extends AjaxController
 {
@@ -34,7 +37,7 @@ final class ShortMessagesCrudController extends AjaxController
 
         if(!$this->isCsrfTokenValid($token_id, $token_value)) {
             return $this->ajaxResponse(
-                $this->toJson(['status' => 'error', 'data' => 'Probe hack! It seems that your CSRF token is invalid!'])
+                $this->toJson(['status' => self::AJAX_STATUS_ERROR_CODE, 'data' => 'Probe hack! It seems that your CSRF token is invalid!'])
             );
         }
         $form = $this->addingFormFactory->createFromRequest($request);
@@ -42,7 +45,7 @@ final class ShortMessagesCrudController extends AjaxController
         if ($form->hasValidationErrors()) {
             foreach ($form->getValidationErrors() as $errorMessage) {
                 return $this->ajaxResponse(
-                    $this->toJson(['status' => 'error', 'data' => $errorMessage])
+                    $this->toJson(['status' => self::AJAX_STATUS_ERROR_CODE, 'data' => $errorMessage])
                 );
             }
         }
@@ -50,7 +53,7 @@ final class ShortMessagesCrudController extends AjaxController
         $this->addingShortMessageHandler->handle($form->toCommand());
 
         return $this->ajaxResponse(
-            $this->toJson(['status' => 'success'])
+            $this->toJson(['status' => self::AJAX_STATUS_SUCCESS_CODE])
         );
     }
     /**
@@ -64,6 +67,24 @@ final class ShortMessagesCrudController extends AjaxController
             ->execute();
         return $this->ajaxResponse(
             $this->toJson($messages)
+        );
+    }
+    /**
+     * @Route("/api/shortmessages", methods={"DELETE"})
+     */
+    public function deleteShortMessages(Request $request): Response
+    {
+        $uuid = Uuid::fromString($request->get('uuid'));
+
+        $shortMessage = new ShortMessage();
+        $shortMessage->setUuid($uuid->toBinary());
+
+        $shortMessageFound = $this->shortMessageRepository->findOneByUuid($uuid->toBinary());
+
+        $this->shortMessageRepository->remove($shortMessageFound, true);
+
+        return $this->ajaxResponse(
+            $this->toJson(['status' => $shortMessageFound ? self::AJAX_STATUS_SUCCESS_CODE : self::AJAX_STATUS_ERROR_CODE])
         );
     }
 }

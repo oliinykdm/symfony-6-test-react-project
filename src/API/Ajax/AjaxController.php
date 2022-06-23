@@ -11,8 +11,12 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
 class AjaxController extends AbstractController
 {
+    const AJAX_STATUS_SUCCESS_CODE = 'success';
+    const AJAX_STATUS_ERROR_CODE = 'error';
+
     private CsrfTokenManagerInterface $csrfTokenManager;
 
     public function __construct(

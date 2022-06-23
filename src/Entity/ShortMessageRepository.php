@@ -39,20 +39,16 @@ class ShortMessageRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return ShortMessage[] Returns an array of ShortMessage objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('s.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findOneByUuid($value): ?ShortMessage
+    {
+
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.uuid = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
 
 //    public function findOneBySomeField($value): ?ShortMessage
 //    {

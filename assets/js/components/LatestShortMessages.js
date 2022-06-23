@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class LatestShortMessages extends Component {
     constructor() {
@@ -19,6 +20,24 @@ class LatestShortMessages extends Component {
             const short_messages = res.data.slice(0,15);
             this.setState({ short_messages, loading: false })
         })
+    }
+    deleteShortMessage(uuid) {
+        let isExecuted = confirm("Are you sure to execute this action?");
+        if(isExecuted) {
+            axios.delete('/api/shortmessages', { params: { uuid: uuid } }).then(res => {
+                this.getShortMessages();
+                toast.success('Success! The message has successfully deleted!', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            })
+        }
+
     }
     render() {
         const loading = this.state.loading;
@@ -55,6 +74,7 @@ class LatestShortMessages extends Component {
                                                 <p><b>Date: </b>
                                                     <Moment fromNow date={message.messageDate} />
                                                     </p>
+                                                <p><button type="button" className="btn btn-outline-danger" onClick={this.deleteShortMessage.bind(this, message.uuid)}>Delete</button></p>
                                             </div>
                                         </div>
                                     </li>
