@@ -79,12 +79,18 @@ final class ShortMessagesCrudController extends AjaxController
         $shortMessage = new ShortMessage();
         $shortMessage->setUuid($uuid->toBinary());
 
-        $shortMessageFound = $this->shortMessageRepository->findOneByUuid($uuid->toBinary());
+        $shortMessage = $this->shortMessageRepository->findOneByUuid($uuid->toBinary());
 
-        $this->shortMessageRepository->remove($shortMessageFound, true);
+        if(!$shortMessage instanceof ShortMessage) {
+            return $this->ajaxResponse(
+                $this->toJson(['status' => self::AJAX_STATUS_ERROR_CODE])
+            );
+        }
+
+        $this->shortMessageRepository->remove($shortMessage, true);
 
         return $this->ajaxResponse(
-            $this->toJson(['status' => $shortMessageFound ? self::AJAX_STATUS_SUCCESS_CODE : self::AJAX_STATUS_ERROR_CODE])
+            $this->toJson(['status' => self::AJAX_STATUS_SUCCESS_CODE])
         );
     }
 }
