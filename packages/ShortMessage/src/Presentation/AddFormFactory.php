@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\ShortMessage\Presentation;
+namespace Messagehub\ShortMessage\Presentation;
 
 use Symfony\Component\HttpFoundation\Request;
 

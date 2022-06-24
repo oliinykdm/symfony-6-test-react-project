@@ -1,11 +1,8 @@
-controllers:
+basic_controllers:
     resource: ../src/Controller/
     type: annotation
-short_message_controller:
-    resource: ../src/ShortMessage/Presentation/
-    type: annotation
-api_controller:
-        resource: ../src/API/
+api_v1_bundle:
+        resource: ../src/ApiV1Bundle/
         type: annotation
 kernel:
     resource: ../src/Kernel.php

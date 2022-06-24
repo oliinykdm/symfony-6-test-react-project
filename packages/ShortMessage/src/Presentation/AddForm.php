@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\ShortMessage\Presentation;
+namespace Messagehub\ShortMessage\Presentation;
 
-use App\ShortMessage\Application\AddShortMessage;
+use Messagehub\ShortMessage\Application\AddShortMessage;
 use Symfony\Component\Uid\Uuid;
 
 final class AddForm

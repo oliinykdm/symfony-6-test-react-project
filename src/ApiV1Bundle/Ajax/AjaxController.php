@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\API\Ajax;
+namespace Messagehub\ApiV1Bundle\Ajax;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,6 +12,7 @@ use Symfony\Component\Serializer\Normalizer\UidNormalizer;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 class AjaxController extends AbstractController
 {
     const AJAX_STATUS_SUCCESS_CODE = 'success';

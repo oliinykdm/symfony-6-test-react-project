@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\ShortMessage\Application;
+namespace Messagehub\ShortMessage\Application;
 
-use App\Entity\ShortMessage;
-use App\Entity\ShortMessageRepository;
+use Messagehub\Entity\ShortMessage;
+use Messagehub\Entity\ShortMessageRepository;
 
 final class AddShortMessageHandler
 {
@@ -12,7 +12,7 @@ final class AddShortMessageHandler
     {
         $this->shortMessageRepository = $shortMessageRepository;
     }
-    public function handle(AddShortMessage $command):void
+    public function handle(AddShortMessage $command): void
     {
         $shortMessage = new ShortMessage();
         $shortMessage

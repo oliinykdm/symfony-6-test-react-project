@@ -1,18 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace App\API;
+namespace Messagehub\ApiV1Bundle;
 
-use App\API\Ajax\AjaxController;
-use App\Entity\ShortMessage;
-use App\Entity\ShortMessageRepository;
-use App\ShortMessage\Application\AddShortMessageHandler;
-use App\ShortMessage\Presentation\AddFormFactory;
+use Messagehub\ApiV1Bundle\Ajax\AjaxController;
+use Messagehub\Entity\ShortMessage;
+use Messagehub\Entity\ShortMessageRepository;
+use Messagehub\ShortMessage\Application\AddShortMessageHandler;
+use Messagehub\ShortMessage\Presentation\AddFormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
 
-final class ShortMessagesCrudController extends AjaxController
+final class CrudController extends AjaxController
 {
     private ShortMessageRepository $shortMessageRepository;
     private AddFormFactory $addingFormFactory;

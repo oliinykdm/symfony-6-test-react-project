@@ -1,14 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace App\ShortMessage\Presentation;
+namespace Messagehub\Controller;
 
+use Messagehub\ShortMessage\Application\AddShortMessageHandler;
+use Messagehub\ShortMessage\Presentation\AddFormFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\ShortMessage\Application\AddShortMessageHandler;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class AddController extends AbstractController

@@ -1,0 +1,9 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  # Controllers
+  Messagehub\ApiV1Bundle\CrudController:
+  Messagehub\ApiV1Bundle\Ajax\AjaxController:
+

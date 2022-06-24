@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Messagehub\Entity;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method ShortMessage[]    findAll()
  * @method ShortMessage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ShortMessageRepository extends ServiceEntityRepository
+final class ShortMessageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -41,7 +41,6 @@ class ShortMessageRepository extends ServiceEntityRepository
 
     public function findOneByUuid($value): ?ShortMessage
     {
-
         return $this->createQueryBuilder('s')
             ->andWhere('s.uuid = :val')
             ->setParameter('val', $value)
@@ -49,14 +48,4 @@ class ShortMessageRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
             ;
     }
-
-//    public function findOneBySomeField($value): ?ShortMessage
-//    {
-//        return $this->createQueryBuilder('s')
-//            ->andWhere('s.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

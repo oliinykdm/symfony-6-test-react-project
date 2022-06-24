@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Messagehub\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ShortMessageRepository::class)]
