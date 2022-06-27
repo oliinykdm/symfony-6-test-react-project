@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class AddFormFactory
 {
-    public function createFromRequest(Request $request): AddForm
+    public static function createFromRequest(Request $request): AddForm
     {
         return new AddForm(
             (string)$request->get('message_text'),

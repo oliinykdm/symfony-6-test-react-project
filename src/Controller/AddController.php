@@ -2,7 +2,7 @@
 
 namespace Messagehub\Controller;
 
-use Messagehub\ShortMessage\Application\AddShortMessageHandler;
+use Messagehub\ShortMessage\Application\CreateShortMessageHandler;
 use Messagehub\ShortMessage\Presentation\AddFormFactory;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,8 +17,8 @@ class AddController extends AbstractController
     private object $addingFormFactory;
     private object $addingShortMessageHandler;
     public function __construct(
-        AddFormFactory         $addingFormFactory,
-        AddShortMessageHandler $addingShortMessageHandler,
+        AddFormFactory            $addingFormFactory,
+        CreateShortMessageHandler $addingShortMessageHandler,
     ) {
         $this->addingFormFactory = $addingFormFactory;
         $this->addingShortMessageHandler = $addingShortMessageHandler;

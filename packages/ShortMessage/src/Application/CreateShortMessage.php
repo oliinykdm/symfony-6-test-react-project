@@ -1,16 +1,14 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Messagehub\ShortMessage\Application;
 
 use Symfony\Component\Uid\UuidV4;
 
-final class AddShortMessage
+final class CreateShortMessage
 {
     private UuidV4 $uuid;
-
     private string $message_text;
-
-    private string $message_author;
+    private int $message_author;
 
     public function __construct(UuidV4 $uuid, string $message_text, int $message_author)
     {

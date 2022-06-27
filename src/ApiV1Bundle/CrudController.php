@@ -5,7 +5,7 @@ namespace Messagehub\ApiV1Bundle;
 use Messagehub\ApiV1Bundle\Ajax\AjaxController;
 use Messagehub\Entity\ShortMessage;
 use Messagehub\Entity\ShortMessageRepository;
-use Messagehub\ShortMessage\Application\AddShortMessageHandler;
+use Messagehub\ShortMessage\Application\CreateShortMessageHandler;
 use Messagehub\ShortMessage\Presentation\AddFormFactory;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +16,11 @@ final class CrudController extends AjaxController
 {
     private ShortMessageRepository $shortMessageRepository;
     private AddFormFactory $addingFormFactory;
-    private AddShortMessageHandler $addingShortMessageHandler;
+    private CreateShortMessageHandler $addingShortMessageHandler;
     public function __construct(
-        ShortMessageRepository $shortMessageRepository,
-        AddFormFactory         $addingFormFactory,
-        AddShortMessageHandler $addingShortMessageHandler,
+        ShortMessageRepository    $shortMessageRepository,
+        AddFormFactory            $addingFormFactory,
+        CreateShortMessageHandler $addingShortMessageHandler,
     )
     {
         $this->shortMessageRepository = $shortMessageRepository;

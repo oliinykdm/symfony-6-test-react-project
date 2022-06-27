@@ -2,9 +2,9 @@
 
 namespace Messagehub\ShortMessage\Presentation;
 
-use Messagehub\ShortMessage\Application\AddShortMessage;
+use Messagehub\ShortMessage\Application\CreateShortMessage;
 use Symfony\Component\Uid\Uuid;
-
+// TODO Replace with validator in the Application layer
 final class AddForm
 {
     private string $message_text;
@@ -29,15 +29,17 @@ final class AddForm
         }
         return $errors;
     }
-    public function toCommand(): AddShortMessage
+
+    public function toCommand(): CreateShortMessage
     {
-        return new AddShortMessage(
+        return new CreateShortMessage(
             Uuid::v4(),
             $this->message_text,
             $this->message_author,
         );
 
     }
+
     public function hasValidationErrors(): bool
     {
         return (count($this->getValidationErrors()) > 0);

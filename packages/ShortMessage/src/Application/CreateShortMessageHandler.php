@@ -5,14 +5,16 @@ namespace Messagehub\ShortMessage\Application;
 use Messagehub\Entity\ShortMessage;
 use Messagehub\Entity\ShortMessageRepository;
 
-final class AddShortMessageHandler
+final class CreateShortMessageHandler
 {
     private ShortMessageRepository $shortMessageRepository;
+
     public function __construct(ShortMessageRepository $shortMessageRepository)
     {
         $this->shortMessageRepository = $shortMessageRepository;
     }
-    public function handle(AddShortMessage $command): void
+
+    public function handle(CreateShortMessage $command): void
     {
         $shortMessage = new ShortMessage();
         $shortMessage
@@ -21,6 +23,7 @@ final class AddShortMessageHandler
             ->setMessageAuthor($command->getMessageAuthor())
             ->setMessageDate(new \DateTimeImmutable());
 
+        // TODO Replace ORM Entity with Dbal Writer
         $this->shortMessageRepository->add($shortMessage, true);
     }
 }

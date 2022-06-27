@@ -26,5 +26,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 imports:
-        - { resource: '../packages/ShortMessage/services.yml' }
-        - { resource: '../src/ApiV1Bundle/services.yml' }
+    - { resource: parameters.yml }
+    - { resource: '../packages/ShortMessage/services.yml' }
+    - { resource: '../src/ApiV1Bundle/services.yml' }
