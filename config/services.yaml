@@ -28,4 +28,5 @@ services:
 imports:
     - { resource: parameters.yml }
     - { resource: '../packages/ShortMessage/services.yml' }
+    - { resource: '../packages/Common/services.yml' }
     - { resource: '../src/ApiV1Bundle/services.yml' }

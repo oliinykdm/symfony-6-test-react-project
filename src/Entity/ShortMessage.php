@@ -2,7 +2,7 @@
 
 namespace Messagehub\Entity;
 use Doctrine\ORM\Mapping as ORM;
-
+// TODO transform into DbalWriter/Reader
 #[ORM\Entity(repositoryClass: ShortMessageRepository::class)]
 class ShortMessage
 {

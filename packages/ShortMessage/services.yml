@@ -4,10 +4,9 @@ services:
     autoconfigure: true
     public: true
 
-
   # Services
-  Messagehub\ShortMessage\Application\AddShortMessageHandler:
-
+  Messagehub\ShortMessage\Application\CreateShortMessageHandler:
+  Messagehub\ShortMessage\Application\CreateShortMessageValidator:
 
   Messagehub\Entity\ShortMessageRepository:
   Messagehub\ShortMessage\Presentation\AddFormFactory:

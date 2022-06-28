@@ -1,11 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Messagehub\ShortMessage\Presentation;
+namespace Messagehub\ShortMessage\Application;
 
-use Messagehub\ShortMessage\Application\CreateShortMessage;
 use Symfony\Component\Uid\Uuid;
-// TODO Replace with validator in the Application layer
-final class AddForm
+final class CreateShortMessageValidator
 {
     private string $message_text;
     private int $message_author;

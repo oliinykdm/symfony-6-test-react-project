@@ -5,7 +5,7 @@ namespace Messagehub\Entity;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-
+// TODO transform to DBAL as well ad delete them
 /**
  * @extends ServiceEntityRepository<ShortMessage>
  *

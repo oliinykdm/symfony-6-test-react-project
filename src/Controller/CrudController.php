@@ -1,30 +1,25 @@
 <?php declare(strict_types=1);
 
-namespace Messagehub\ApiV1Bundle;
+namespace Messagehub\Controller;
 
 use Messagehub\ApiV1Bundle\Ajax\AjaxController;
-use Messagehub\Entity\ShortMessage;
 use Messagehub\Entity\ShortMessageRepository;
 use Messagehub\ShortMessage\Application\CreateShortMessageHandler;
-use Messagehub\ShortMessage\Presentation\AddFormFactory;
+use Messagehub\ShortMessage\Application\CreateShortMessageValidator;
+use Messagehub\ShortMessage\Presentation\ShortMessage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
 
 final class CrudController extends AjaxController
 {
-    private ShortMessageRepository $shortMessageRepository;
-    private AddFormFactory $addingFormFactory;
+
     private CreateShortMessageHandler $addingShortMessageHandler;
     public function __construct(
-        ShortMessageRepository    $shortMessageRepository,
-        AddFormFactory            $addingFormFactory,
+
         CreateShortMessageHandler $addingShortMessageHandler,
-    )
-    {
-        $this->shortMessageRepository = $shortMessageRepository;
-        $this->addingFormFactory = $addingFormFactory;
+    ) {
+
         $this->addingShortMessageHandler = $addingShortMessageHandler;
     }
     /**
@@ -40,7 +35,7 @@ final class CrudController extends AjaxController
                 $this->toJson(['status' => self::AJAX_STATUS_ERROR_CODE, 'data' => 'Probe hack! It seems that your CSRF token is invalid!'])
             );
         }
-        $form = $this->addingFormFactory->createFromRequest($request);
+        $form = ShortMessage::generate($request);
 
         if ($form->hasValidationErrors()) {
             foreach ($form->getValidationErrors() as $errorMessage) {

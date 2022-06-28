@@ -62,7 +62,8 @@
     "autoload": {
         "psr-4": {
             "Messagehub\\": "src/",
-            "Messagehub\\ShortMessage\\": "packages/ShortMessage/src/"
+            "Messagehub\\ShortMessage\\": "packages/ShortMessage/src/",
+            "Messagehub\\Common\\": "packages/Common/src/"
         }
     },
     "autoload-dev": {

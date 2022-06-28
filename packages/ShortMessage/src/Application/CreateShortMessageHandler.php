@@ -1,29 +1,23 @@
 <?php declare(strict_types=1);
 
 namespace Messagehub\ShortMessage\Application;
-
-use Messagehub\Entity\ShortMessage;
-use Messagehub\Entity\ShortMessageRepository;
+use Messagehub\Common\Application\HandlerResponse\Error\Error;
 
 final class CreateShortMessageHandler
 {
-    private ShortMessageRepository $shortMessageRepository;
 
-    public function __construct(ShortMessageRepository $shortMessageRepository)
-    {
-        $this->shortMessageRepository = $shortMessageRepository;
-    }
+    public function __construct(
+        private CreateShortMessageValidator $shortMessageValidator,
+    ) {}
 
-    public function handle(CreateShortMessage $command): void
+    public function handle(CreateShortMessage $command)
     {
-        $shortMessage = new ShortMessage();
-        $shortMessage
-            ->setUuid($command->getUuid())
-            ->setMessageText($command->getMessageText())
-            ->setMessageAuthor($command->getMessageAuthor())
-            ->setMessageDate(new \DateTimeImmutable());
+        if ($this->shortMessageValidator->hasValidationErrors()) {
+            foreach ($this->shortMessageValidator->getValidationErrors() as $errorMessage) {
+                return Error::fromValidator($errorMessage);
+            }
+        }
 
         // TODO Replace ORM Entity with Dbal Writer
-        $this->shortMessageRepository->add($shortMessage, true);
     }
 }
