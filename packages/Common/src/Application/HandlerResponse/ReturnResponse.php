@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Messagehub\Common\Application\HandlerResponse\ReturnResponse;
+namespace Messagehub\Common\Application\HandlerResponse;
 
-use Messagehub\Common\Application\HandlerResponse\HandlerResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;

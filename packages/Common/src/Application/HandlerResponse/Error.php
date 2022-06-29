@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Messagehub\Common\Application\HandlerResponse\Error;
+namespace Messagehub\Common\Application\HandlerResponse;
 
-use Messagehub\Common\Application\HandlerResponse\ReturnResponse\ReturnResponse;
 use Messagehub\ShortMessage\Application\CreateShortMessageValidator;
-use Messagehub\Common\Application\HandlerResponse\HandlerResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Error extends ReturnResponse implements HandlerResponse
