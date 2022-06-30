@@ -2,30 +2,24 @@
 
 namespace Messagehub\Controller;
 
-use Messagehub\ShortMessage\Presentation\ShortMessage;
+
+use Messagehub\Common\Domain\Bus\Command\CommandBus;
+use Messagehub\Common\Domain\Types\Uuid;
+use Messagehub\ShortMessage\Application\Create\CreateShortMessageCommand;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Routing\Annotation\Route;
+use DateTimeImmutable;
 
 class AddController extends AbstractController
 {
-
-    private object $shortMessage;
-    public function __construct(
-        ShortMessage $shortMessage
-    ) {
-        $this->shortMessage = $shortMessage;
-    }
     /**
      * @Route("/message/add", methods={"GET"})
      */
     public function index(): Response
     {
-
         return $this->render('shortmessages/adding/form.html.twig', [
         ]);
     }
@@ -34,12 +28,30 @@ class AddController extends AbstractController
      */
     public function add(Request $request): Response
     {
-        ShortMessage::generate($request);
+            new CreateShortMessageCommand(
+                Uuid::generate()->value(),
+                'test',
+                1,
+                new \DateTimeImmutable()
+            );
+
+
         $response = new RedirectResponse('/message/add');
 
 
-        $this->addFlash('success', 'Your short message was successfully submitted!');
-        return $response;
+       // $form = $this->addingFormFactory->createFromRequest($request);
+
+//        if ($form->hasValidationErrors()) {
+//            foreach ($form->getValidationErrors() as $errorMessage) {
+//                $this->addFlash('errors', $errorMessage);
+//            }
+//            return $response;
+//        }
+       // $this->addingShortMessageHandler->handle($form->toCommand());
+//        $this->addFlash('success', 'Your short message was successfully submitted!');
+//        return $response;
+        return $this->render('shortmessages/adding/form.html.twig', [
+        ]);
 
     }
 }

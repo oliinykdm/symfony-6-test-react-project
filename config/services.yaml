@@ -20,7 +20,6 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Tests/'
-            - '../src/ApiV1Bundle/'
 
 
     # add more service definitions when explicit configuration is needed
@@ -29,4 +28,3 @@ imports:
     - { resource: parameters.yml }
     - { resource: '../packages/ShortMessage/services.yml' }
     - { resource: '../packages/Common/services.yml' }
-    - { resource: '../src/ApiV1Bundle/services.yml' }

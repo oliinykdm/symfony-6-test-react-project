@@ -5,8 +5,8 @@ services:
     public: true
 
   # Services
-  Messagehub\ShortMessage\Application\CreateShortMessageHandler:
-  Messagehub\ShortMessage\Application\CreateShortMessageValidator:
-
-  Messagehub\Entity\ShortMessageRepository:
-  Messagehub\ShortMessage\Presentation\AddFormFactory:
+  Messagehub\ShortMessage\Presentation\ShortMessage:
+  Messagehub\ShortMessage\Application\Create\ShortMessageCreator:
+  Messagehub\ShortMessage\Application\Create\CreateShortMessageCommandHandler:
+  Messagehub\ShortMessage\Domain\ShortMessageRepository:
+    class: Messagehub\ShortMessage\Domain\Infrastructure\ShortMessageRepositoryMySql
