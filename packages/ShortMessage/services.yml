@@ -4,9 +4,9 @@ services:
     autoconfigure: true
     public: true
 
-  # Services
-  Messagehub\ShortMessage\Presentation\ShortMessage:
-  Messagehub\ShortMessage\Application\Create\ShortMessageCreator:
-  Messagehub\ShortMessage\Application\Create\CreateShortMessageCommandHandler:
-  Messagehub\ShortMessage\Domain\ShortMessageRepository:
-    class: Messagehub\ShortMessage\Domain\Infrastructure\ShortMessageRepositoryMySql
+  # Services:
+  Messagehub\ShortMessage\Application\Create\CreateShortMessageHandler:
+  Messagehub\ShortMessage\Application\ShortMessageWriter:
+    class: Messagehub\ShortMessage\Infrastructure\DbalShortMessageWriter
+  Messagehub\ShortMessage\Application\ShortMessageReader:
+    class: Messagehub\ShortMessage\Domain\Infrastructure\DbalShortMessageReader

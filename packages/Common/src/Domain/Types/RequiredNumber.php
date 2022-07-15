@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Messagehub\Common\Domain\Types;
 
-class NormalInt
+class RequiredNumber
 {
     public function __construct(protected int $value)
     {}
@@ -12,5 +12,9 @@ class NormalInt
     public function value(): int
     {
         return $this->value;
+    }
+    public static function fromString($value): static
+    {
+        return new static($value);
     }
 }

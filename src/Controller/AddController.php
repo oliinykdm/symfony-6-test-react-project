@@ -2,17 +2,22 @@
 
 namespace Messagehub\Controller;
 
-use Messagehub\Common\Domain\Types\Uuid;
-use Messagehub\ShortMessage\Application\Create\CreateShortMessageCommand;
+use Messagehub\Common\Domain\Types\RequiredUuid;
+use Messagehub\ShortMessage\Application\Create\CreateShortMessage;
+use Messagehub\ShortMessage\Application\Create\CreateShortMessageHandler;
+use Messagehub\ShortMessage\Application\ShortMessage;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class AddController extends AbstractController
 {
+    public function __construct(
+        private CreateShortMessageHandler $createShortMessageHandler
+    ) {}
+
     /**
      * @Route("/message/add", methods={"GET"})
      */
@@ -26,12 +31,12 @@ class AddController extends AbstractController
      */
     public function add(Request $request): Response
     {
-            new CreateShortMessageCommand(
-                Uuid::generate()->value(),
-                'test',
-                1,
-                new \DateTimeImmutable()
-            );
+        $response = $this->createShortMessageHandler->handle(
+            new CreateShortMessage(
+                $request->get('message_text'),
+                1
+            )
+        );
 
         $response = new RedirectResponse('/message/add');
 
