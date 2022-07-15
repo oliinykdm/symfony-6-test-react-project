@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Messagehub\ShortMessage\Infrastructure;
 
@@ -11,7 +11,7 @@ use Messagehub\ShortMessage\Types\ShortMessageDate;
 use Messagehub\ShortMessage\Types\ShortMessageId;
 use Messagehub\ShortMessage\Types\ShortMessageText;
 
-class DbalShortMessageReader implements ShortMessageReader
+final class DbalShortMessageReader implements ShortMessageReader
 {
     public function __construct(
         private Connection $connection
