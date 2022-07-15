@@ -7,4 +7,5 @@ use Messagehub\ShortMessage\Types\ShortMessageId;
 interface ShortMessageReader
 {
     public function findById(ShortMessageId $uuid): ?ShortMessage;
+    public function findAll(): ?array;
 }

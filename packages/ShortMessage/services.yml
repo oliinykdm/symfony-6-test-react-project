@@ -8,5 +8,4 @@ services:
   Messagehub\ShortMessage\Application\Create\CreateShortMessageHandler:
   Messagehub\ShortMessage\Application\ShortMessageWriter:
     class: Messagehub\ShortMessage\Infrastructure\DbalShortMessageWriter
-  Messagehub\ShortMessage\Application\ShortMessageReader:
-    class: Messagehub\ShortMessage\Domain\Infrastructure\DbalShortMessageReader
+  Messagehub\ShortMessage\Infrastructure\DbalShortMessageReader:

@@ -6,6 +6,7 @@ use Messagehub\Common\Domain\Types\RequiredUuid;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessage;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessageHandler;
 use Messagehub\ShortMessage\Application\ShortMessage;
+use Messagehub\ShortMessage\Infrastructure\DbalShortMessageReader;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class AddController extends AbstractController
 {
     public function __construct(
-        private CreateShortMessageHandler $createShortMessageHandler
+        private CreateShortMessageHandler $createShortMessageHandler,
+        private DbalShortMessageReader $dbalShortMessageReader
     ) {}
 
     /**

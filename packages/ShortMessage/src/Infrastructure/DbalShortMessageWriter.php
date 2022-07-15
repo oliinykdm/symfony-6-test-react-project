@@ -29,6 +29,5 @@ final class DbalShortMessageWriter implements ShortMessageWriter
         $qb->setParameter('message_author', $shortMessage->getAuthor()->value(), Types::INTEGER);
         $qb->setParameter('message_date', $shortMessage->getDate()->toString(), Types::STRING);
         $qb->executeQuery();
-
     }
 }
