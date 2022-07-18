@@ -3,13 +3,14 @@
 namespace Messagehub\ShortMessage\Application\Create;
 
 use Messagehub\ShortMessage\Application\ShortMessage;
+use Messagehub\ShortMessage\Application\ShortMessageValidator;
 use Messagehub\ShortMessage\Application\ShortMessageWriter;
 
 final class CreateShortMessageHandler
 {
     public function __construct(
-        private ShortMessageWriter $messageWriter
-        // validator
+        private ShortMessageWriter $messageWriter,
+        private ShortMessageValidator $shortMessageValidator
     ) {}
 
     public function handle(CreateShortMessage $command): bool
@@ -19,7 +20,14 @@ final class CreateShortMessageHandler
             $command->getAuthor()
         );
 
-        $this->messageWriter->add($shortMessageToSave);
+        $this->shortMessageValidator->validateCreate($command);
+
+        if($this->shortMessageValidator->getErrors()) {
+            return false;
+        }
+        else {
+            $this->messageWriter->add($shortMessageToSave);
+        }
 
         return true;
     }

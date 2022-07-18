@@ -6,6 +6,7 @@ use Messagehub\Common\Domain\Types\RequiredUuid;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessage;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessageHandler;
 use Messagehub\ShortMessage\Application\ShortMessage;
+use Messagehub\ShortMessage\Application\ShortMessageValidator;
 use Messagehub\ShortMessage\Infrastructure\DbalShortMessageReader;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +18,7 @@ class AddController extends AbstractController
 {
     public function __construct(
         private CreateShortMessageHandler $createShortMessageHandler,
-        private DbalShortMessageReader $dbalShortMessageReader
+        private ShortMessageValidator $shortMessageValidator
     ) {}
 
     /**
@@ -25,25 +26,29 @@ class AddController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('shortmessages/adding/form.html.twig', [
-        ]);
+        return $this->render('shortmessages/adding/form.html.twig');
     }
     /**
      * @Route("/message/add", methods={"POST"})
      */
     public function add(Request $request): Response
     {
-        $response = $this->createShortMessageHandler->handle(
+        $this->createShortMessageHandler->handle(
             new CreateShortMessage(
                 $request->get('message_text'),
                 1
             )
         );
-
         $response = new RedirectResponse('/message/add');
+        if ($this->shortMessageValidator->hasErrors()) {
+            foreach ($this->shortMessageValidator->getErrors() as $errorMessage) {
+                $this->addFlash('errors', $errorMessage);
+            }
+            return $response;
+        }
+        $this->addFlash('success', 'Your short message was successfully submitted!');
 
-        return $this->render('shortmessages/adding/form.html.twig', [
-        ]);
+        return $this->render('shortmessages/adding/form.html.twig');
 
     }
 }
