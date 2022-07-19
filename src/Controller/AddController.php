@@ -2,12 +2,11 @@
 
 namespace Messagehub\Controller;
 
-use Messagehub\Common\Domain\Types\RequiredUuid;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessage;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessageHandler;
-use Messagehub\ShortMessage\Application\ShortMessage;
+use Messagehub\ShortMessage\Application\ShortMessageReader;
 use Messagehub\ShortMessage\Application\ShortMessageValidator;
-use Messagehub\ShortMessage\Infrastructure\DbalShortMessageReader;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,8 @@ class AddController extends AbstractController
 {
     public function __construct(
         private CreateShortMessageHandler $createShortMessageHandler,
-        private ShortMessageValidator $shortMessageValidator
+        private ShortMessageValidator $shortMessageValidator,
+        private ShortMessageReader $shortMessageReader
     ) {}
 
     /**
@@ -26,7 +26,10 @@ class AddController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('shortmessages/adding/form.html.twig');
+        return $this->render('shortmessages/adding/form.html.twig', [
+                'shortMessages' => $this->shortMessageReader->findAll(),
+                'latestInsertId' => null
+            ]);
     }
     /**
      * @Route("/message/add", methods={"POST"})
@@ -39,6 +42,7 @@ class AddController extends AbstractController
                 1
             )
         );
+
         $response = new RedirectResponse('/message/add');
         if ($this->shortMessageValidator->hasErrors()) {
             foreach ($this->shortMessageValidator->getErrors() as $errorMessage) {
@@ -46,9 +50,13 @@ class AddController extends AbstractController
             }
             return $response;
         }
+
         $this->addFlash('success', 'Your short message was successfully submitted!');
 
-        return $this->render('shortmessages/adding/form.html.twig');
+        return $this->render('shortmessages/adding/form.html.twig', [
+            'shortMessages' => $this->shortMessageReader->findAll(),
+            'latestInsertId' => Uuid::fromString($this->createShortMessageHandler->getLatestInsertId()->toString())->getBytes()
+        ]);
 
     }
 }

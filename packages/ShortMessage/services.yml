@@ -9,4 +9,5 @@ services:
   Messagehub\ShortMessage\Application\ShortMessageValidator:
   Messagehub\ShortMessage\Application\ShortMessageWriter:
     class: Messagehub\ShortMessage\Infrastructure\DbalShortMessageWriter
-  Messagehub\ShortMessage\Infrastructure\DbalShortMessageReader:
+  Messagehub\ShortMessage\Application\ShortMessageReader:
+    class: Messagehub\ShortMessage\Infrastructure\DbalShortMessageReader

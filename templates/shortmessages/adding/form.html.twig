@@ -1,6 +1,15 @@
-{% include 'FlashMessages.html.twig' %}
+<div style="padding: 10px;">
 
-<form method="post" action="">
-    <textarea name="message_text"></textarea>
-    <input type="submit" />
-</form>
+    {% include 'FlashMessages.html.twig' %}
+    <form method="post" action="">
+        <textarea name="message_text" rows="10" cols="45"></textarea>
+        <input type="submit" />
+    </form>
+
+    {% for message in shortMessages %}
+        <div style="{% if message.uuid == latestInsertId %}background: #ffb8fa;{% endif %}">
+            <span><b>Author</b>: [{{ message.message_author }}]</span>
+            <span><b>Message</b>: [{{ message.message_text }}]</span><br />
+        </div>
+    {% endfor %}
+</div>

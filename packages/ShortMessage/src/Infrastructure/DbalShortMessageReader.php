@@ -17,17 +17,19 @@ final class DbalShortMessageReader implements ShortMessageReader
         private Connection $connection
     ) {}
 
-    public function findAll(): ?array
+    public function findAll($orderBy = 'message_date', $sorting = 'desc'): ?array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('*');
         $qb->from('short_message');
+        $qb->orderBy($orderBy, $sorting);
         $rows = $qb->executeQuery()->fetchAllAssociative();
         if (!$rows) {
             return null;
         }
         return $rows;
     }
+
     public function findById(ShortMessageId $uuid): ?ShortMessage
     {
         $qb = $this->connection->createQueryBuilder();

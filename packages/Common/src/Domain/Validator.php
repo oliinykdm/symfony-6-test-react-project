@@ -2,18 +2,25 @@
 
 namespace Messagehub\Common\Domain;
 
+use Messagehub\Common\Domain\Messages\Message;
+use Messagehub\Common\Domain\Messages\MessagesArray;
+
 abstract class Validator
 {
-    protected array $errors = [];
-
-    protected function addMessage($message): void
+    protected MessagesArray $errors;
+    public function __construct()
     {
-        $this->errors[] = $message;
+        $this->errors = MessagesArray::createEmpty();
+    }
+
+    protected function addMessage(Message $message): void
+    {
+        $this->errors->addMessage($message);
     }
 
     protected function getValidationErrors(): array
     {
-        return $this->errors;
+        return $this->errors->toArrayOfMessages();
     }
 
     protected function hasValidationErrors(): bool

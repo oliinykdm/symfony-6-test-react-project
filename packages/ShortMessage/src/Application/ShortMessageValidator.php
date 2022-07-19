@@ -2,6 +2,7 @@
 
 namespace Messagehub\ShortMessage\Application;
 
+use Messagehub\Common\Domain\Messages\Message;
 use Messagehub\Common\Domain\Validator;
 use Messagehub\ShortMessage\Application\Create\CreateShortMessage;
 
@@ -16,7 +17,7 @@ final class ShortMessageValidator extends Validator
     public function validateTextNotEmpty($text): bool
     {
         if(strlen($text) < 1 || strlen($text) > 200) {
-            $this->addMessage('Message text must be between 1 and 200 characters');
+            $this->addMessage(Message::fromString('Message text must be between 1 and 200 characters'));
             return false;
         }
         else {
@@ -27,7 +28,7 @@ final class ShortMessageValidator extends Validator
     public function validateAuthorNotEmpty($author): bool
     {
         if(empty($author)) {
-            $this->addMessage('Author must be not empty');
+            $this->addMessage(Message::fromString('Author must be not empty'));
             return false;
         }
         else {
